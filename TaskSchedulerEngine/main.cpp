@@ -1,13 +1,26 @@
 #include <iostream>
-#include "Task.h"
+#include "TaskGraph.h"
 
 int main() {
-    Task t1("T1", 5, 10, 3);
+    TaskGraph graph;
 
-    std::cout << "Task ID: " << t1.getId() << std::endl;
-    std::cout << "Priority: " << t1.getPriority() << std::endl;
-    std::cout << "Deadline: " << t1.getDeadline() << std::endl;
-    std::cout << "Execution Time: " << t1.getExecutionTime() << std::endl;
+    graph.addDependency("T1", "T2");
+    graph.addDependency("T1", "T3");
+    graph.addDependency("T2", "T4");
+    graph.addDependency("T3", "T4");
+
+    auto order = graph.topologicalSort();
+
+    if (order.empty()) {
+        std::cout << "Cycle detected. No valid execution order.\n";
+        return 0;
+    }
+
+    std::cout << "Execution Order:\n";
+    for (const auto& task : order) {
+        std::cout << task << " ";
+    }
+    std::cout << std::endl;
 
     return 0;
 }

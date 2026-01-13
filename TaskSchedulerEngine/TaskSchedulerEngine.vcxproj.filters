@@ -19,9 +19,15 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TaskGraph.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskGraph.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
