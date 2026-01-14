@@ -129,10 +129,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="TaskGraph.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scheduler.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="TaskGraph.h" />
   </ItemGroup>

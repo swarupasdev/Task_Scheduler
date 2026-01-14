@@ -22,12 +22,18 @@
     <ClCompile Include="TaskGraph.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Scheduler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Task.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="TaskGraph.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scheduler.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
