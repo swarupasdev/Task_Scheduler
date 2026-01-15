@@ -1,4 +1,5 @@
 #include "Scheduler.h"
+#include <iostream>
 
 bool Scheduler::TaskCompare::operator()(
     const std::shared_ptr<Task>& a,
@@ -17,6 +18,56 @@ void Scheduler::addTask(const std::shared_ptr<Task>& task) {
 
 void Scheduler::addDependency(const std::string& from, const std::string& to) {
     graph.addDependency(from, to);
+}
+
+void Scheduler::run() {
+    int currentTime = 0;
+
+    auto indeg = graph.getIndegreeMap();
+    auto adj = graph.getAdjList();
+
+    // Initialize ready queue
+    for (auto& pair : tasks) {
+        if (indeg[pair.first] == 0) {
+            pair.second->setState(TaskState::READY);
+            readyQueue.push(pair.second);
+        }
+    }
+
+    while (!readyQueue.empty()) {
+        auto task = readyQueue.top();
+        readyQueue.pop();
+
+        task->setState(TaskState::RUNNING);
+        task->setStartTime(currentTime);
+
+        std::cout << "Time " << currentTime
+            << " -> Task " << task->getId()
+            << " started\n";
+
+        currentTime += task->getExecutionTime();
+
+        task->setEndTime(currentTime);
+        task->setState(TaskState::COMPLETED);
+
+        if (currentTime > task->getDeadline()) {
+            std::cout << "Task " << task->getId()
+                << " missed its deadline\n";
+        }
+
+        std::cout << "Time " << currentTime
+            << " -> Task " << task->getId()
+            << " completed\n";
+
+        for (const auto& neighbor : adj.at(task->getId())) {
+            indeg[neighbor]--;
+            if (indeg[neighbor] == 0) {
+                auto nextTask = tasks[neighbor];
+                nextTask->setState(TaskState::READY);
+                readyQueue.push(nextTask);
+            }
+        }
+    }
 }
 
 std::vector<std::string> Scheduler::getScheduledOrder() {

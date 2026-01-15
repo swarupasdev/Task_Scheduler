@@ -26,4 +26,6 @@ public:
     void addDependency(const std::string& from, const std::string& to);
 
     std::vector<std::string> getScheduledOrder();
+    void run();
+
 };

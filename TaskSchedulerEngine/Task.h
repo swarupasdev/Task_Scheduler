@@ -14,7 +14,12 @@ private:
     int priority;
     int deadline;
     int executionTime;
+    
     TaskState state;
+
+    int startTime;
+    int endTime;
+
 
 public:
     Task(const std::string& taskId, int pr, int dl, int execTime);
@@ -26,4 +31,11 @@ public:
     TaskState getState() const;
 
     void setState(TaskState newState);
+
+    int getStartTime() const;
+    int getEndTime() const;
+
+    void setStartTime(int time);
+    void setEndTime(int time);
+
 };

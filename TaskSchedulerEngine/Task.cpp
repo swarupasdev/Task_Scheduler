@@ -1,11 +1,12 @@
 #include "Task.h"
-
 Task::Task(const std::string& taskId, int pr, int dl, int execTime)
     : id(taskId),
     priority(pr),
     deadline(dl),
     executionTime(execTime),
-    state(TaskState::WAITING) {
+    state(TaskState::WAITING),
+    startTime(-1),
+    endTime(-1) {
 }
 
 const std::string& Task::getId() const {
@@ -30,4 +31,20 @@ TaskState Task::getState() const {
 
 void Task::setState(TaskState newState) {
     state = newState;
+}
+
+int Task::getStartTime() const {
+    return startTime;
+}
+
+int Task::getEndTime() const {
+    return endTime;
+}
+
+void Task::setStartTime(int time) {
+    startTime = time;
+}
+
+void Task::setEndTime(int time) {
+    endTime = time;
 }
