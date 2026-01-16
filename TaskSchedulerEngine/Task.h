@@ -20,6 +20,7 @@ private:
     int startTime;
     int endTime;
 
+    bool deadlineMissed;
 
 public:
     Task(const std::string& taskId, int pr, int dl, int execTime);
@@ -37,5 +38,8 @@ public:
 
     void setStartTime(int time);
     void setEndTime(int time);
+
+    bool hasMissedDeadline() const;
+    void markDeadlineMissed();
 
 };

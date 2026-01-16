@@ -6,8 +6,10 @@ Task::Task(const std::string& taskId, int pr, int dl, int execTime)
     executionTime(execTime),
     state(TaskState::WAITING),
     startTime(-1),
-    endTime(-1) {
+    endTime(-1),
+    deadlineMissed(false) {
 }
+
 
 const std::string& Task::getId() const {
     return id;
@@ -47,4 +49,12 @@ void Task::setStartTime(int time) {
 
 void Task::setEndTime(int time) {
     endTime = time;
+}
+
+bool Task::hasMissedDeadline() const {
+    return deadlineMissed;
+}
+
+void Task::markDeadlineMissed() {
+    deadlineMissed = true;
 }

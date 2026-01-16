@@ -22,6 +22,8 @@ void Scheduler::addDependency(const std::string& from, const std::string& to) {
 
 void Scheduler::run() {
     int currentTime = 0;
+    int completedTasks = 0;
+    int totalTasks = static_cast<int>(tasks.size());
 
     auto indeg = graph.getIndegreeMap();
     auto adj = graph.getAdjList();
@@ -34,7 +36,15 @@ void Scheduler::run() {
         }
     }
 
-    while (!readyQueue.empty()) {
+    while (completedTasks < totalTasks) {
+
+        // IDLE CPU HANDLING
+        if (readyQueue.empty()) {
+            std::cout << "Time " << currentTime << " -> CPU Idle\n";
+            currentTime++;
+            continue;
+        }
+
         auto task = readyQueue.top();
         readyQueue.pop();
 
@@ -49,10 +59,12 @@ void Scheduler::run() {
 
         task->setEndTime(currentTime);
         task->setState(TaskState::COMPLETED);
+        completedTasks++;
 
         if (currentTime > task->getDeadline()) {
+            task->markDeadlineMissed();
             std::cout << "Task " << task->getId()
-                << " missed its deadline\n";
+                << " MISSED deadline\n";
         }
 
         std::cout << "Time " << currentTime
@@ -67,6 +79,20 @@ void Scheduler::run() {
                 readyQueue.push(nextTask);
             }
         }
+    }
+
+    // FINAL SUMMARY
+    std::cout << "\nExecution Summary:\n";
+    for (const auto& pair : tasks) {
+        auto t = pair.second;
+        std::cout << "Task " << t->getId()
+            << " | Start: " << t->getStartTime()
+            << " | End: " << t->getEndTime();
+
+        if (t->hasMissedDeadline()) {
+            std::cout << " | Deadline Missed";
+        }
+        std::cout << "\n";
     }
 }
 
