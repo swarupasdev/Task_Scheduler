@@ -21,6 +21,14 @@ void Scheduler::addDependency(const std::string& from, const std::string& to) {
 }
 
 void Scheduler::run() {
+
+    std::cout << "\n--- Task Scheduler Execution Log ---\n";
+
+    if (graph.hasCycle()) {
+        std::cout << "Invalid task graph: cycle detected. Aborting.\n";
+        return;
+    }
+
     int currentTime = 0;
     int completedTasks = 0;
     int totalTasks = static_cast<int>(tasks.size());
@@ -94,8 +102,12 @@ void Scheduler::run() {
         }
         std::cout << "\n";
     }
+
+    std::cout << "--- End of Execution ---\n";
+
 }
 
+/*
 std::vector<std::string> Scheduler::getScheduledOrder() {
     std::vector<std::string> result;
 
@@ -129,3 +141,4 @@ std::vector<std::string> Scheduler::getScheduledOrder() {
 
     return result;
 }
+*/

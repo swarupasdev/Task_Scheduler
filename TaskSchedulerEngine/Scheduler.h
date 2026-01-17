@@ -25,7 +25,7 @@ public:
     void addTask(const std::shared_ptr<Task>& task);
     void addDependency(const std::string& from, const std::string& to);
 
-    std::vector<std::string> getScheduledOrder();
+    // std::vector<std::string> getScheduledOrder();
     void run();
 
 };

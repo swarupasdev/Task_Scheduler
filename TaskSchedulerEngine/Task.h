@@ -8,6 +8,16 @@ enum class TaskState {
     COMPLETED
 };
 
+inline const char* toString(TaskState state) {
+    switch (state) {
+    case TaskState::READY: return "READY";
+    case TaskState::WAITING: return "WAITING";
+    case TaskState::RUNNING: return "RUNNING";
+    case TaskState::COMPLETED: return "COMPLETED";
+    default: return "UNKNOWN";
+    }
+}
+
 class Task {
 private:
     std::string id;
